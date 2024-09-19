@@ -28,6 +28,20 @@ services:
     working_dir: "/"
     restart: unless-stopped
 
+  mariadb:
+    image: linuxserver/mariadb
+    container_name: mariadb
+    env_file: .env
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - ${CONTAINERS_CONFIGS}/mariadb:/config
+      - ${CONTAINERS_CONFIGS}/mariadb:/config/log
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto
